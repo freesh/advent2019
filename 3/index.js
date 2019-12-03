@@ -2,6 +2,27 @@
  * Advent of code 2019 2-1 and 2-2 (https://adventofcode.com/2019/day/3)
  */
 
+const createVector = coordinates => { 
+
+    const cols = 6;
+    const rows = 6
+
+    let vector = [
+        ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
+        ['.', '+', '-', '-', '-', '-', '-', '+', '.', '.', '.'],
+        ['.', '|', '.', '.', '.', '.', '.', '|', '.', '.', '.'],
+        ['.', '|', '.', '.', '+', '-', '-', 'X', '-', '+', '.'],
+        ['.', '|', '.', '.', '|', '.', '.', '|', '.', '|', '.'],
+        ['.', '|', '.', '-', 'X', '-', '-', '+', '.', '|', '.'],
+        ['.', '|', '.', '.', '|', '.', '.', '.', '.', '|', '.'],
+        ['.', '|', '.', '.', '.', '.', '.', '.', '.', '|', '.'],
+        ['.', 'o', '-', '-', '-', '-', '-', '-', '-', '+', '.'],
+        ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']
+    ]
+
+
+    return vector;
+ }
 
 
 const drawVector = vector => {
@@ -15,19 +36,26 @@ const drawVector = vector => {
     return '';
 }
 
-const getDistance = (p1, q1, p2, q2) => { return (p2 - p1) + (q2 - q1) }
+const getCrossingPoints = vector => [[3, 3],[5, 6]]
 
+const getDistance = (p1, p2) => { return (p2[0] - p1[0]) + (p2[1] - p1[0]) }
+
+const getNearestCrossingPoint = vector => {
+    const points = getCrossingPoints(vector);
+    let distances = [];
+    
+    points.forEach(point => {
+        distances.push(getDistance([0, 0], point));
+    });
+
+    return Math.min(...distances);
+}
 // # 2-1
 
+const vector = createVector();
+
 // draw vector
-console.log(drawVector([
-    ['.', '0', '-', '+', '.'],
-    ['.', '.', '.', '|', '.'],
-    ['.', '.', '.', '|', '.'],
-    ['.', '.', '.', '|', '.'],
-    ['.', '.', '-', '+', '.'],
-    ['.', '.', '.', '.', '.']
-]));
+console.log(drawVector(vector));
 
 // distance
-console.log('Distance is :', getDistance(0, 0, 3, 3));
+console.log('Distance is :', getNearestCrossingPoint(vector));
